@@ -8,4 +8,4 @@ def ridge_regression(X: list, y: list, lam: float) -> list:
     X, y = np.asarray(X), np.asarray(y)
     I = np.eye(X.shape[1])
     w = np.linalg.inv(np.matmul(X.T, X) + lam * I) @ X.T @ y
-    return w
+    return w.tolist()
