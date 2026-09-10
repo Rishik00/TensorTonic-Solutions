@@ -2,23 +2,15 @@ import numpy as np
 import math
 from collections import Counter
 
-
-
 def entropy_node(y: list[int]) -> float:
     """
     Returns the Shannon entropy as a Python float.
     """
-    l = len(y)
-    c = Counter(y)
-    
-    num_classes = len(list(c))
+    y = np.asarray(y, dtype=int)
 
-    for i in range(num_classes):
-        c[i] = c[i] / len(y)
+    if len(y) == 0:
+        return 0.0
 
-    H = 0.0
-    for i in range(num_classes):
-        if c[i] > 0:
-            H = H + (c[i] * math.log2(c[i]))
-
-    return -H
+    _, counts = np.unique(y, return_counts=True)
+    probs = counts / len(y)
+    return float(-np.sum(probs * np.log2(probs)))
